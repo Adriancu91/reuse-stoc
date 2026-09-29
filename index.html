@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title></title>
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<script src="common.js"></script>
+</head>
+<body>
+<header class="top"><a href="./" class="logo">♻ <span data-site></span></a></header>
+<main class="wrap">
+  <input id="q" class="search" placeholder="🔍 Caută produse sau locație...">
+  <div id="grid" class="grid"></div>
+  <p id="empty" class="empty" hidden>Momentan nu sunt produse.</p>
+  <p id="none" class="empty" hidden>Niciun rezultat.</p>
+</main>
+<script>
+loadProducts().then(function (items) {
+  items = items.filter(function (p) { return (p.quantity == null ? 1 : p.quantity) > 0; })
+               .sort(function (a, b) { return b.created - a.created; });
+  var grid = document.getElementById("grid");
+  if (!items.length) { document.getElementById("empty").hidden = false; return; }
+  grid.innerHTML = items.map(function (p) {
+    var img = p.photos && p.photos.length
+      ? '<img src="' + esc(p.photos[0]) + '" loading="lazy" alt="">'
+      : '<div class="nophoto">Fără poză</div>';
+    var hay = (p.title + " " + (p.location || "") + " " + (p.description || "")).toLowerCase();
+    return '<a class="card" href="product.html?id=' + encodeURIComponent(p.id) + '" data-t="' + esc(hay) + '">' +
+      '<div class="thumb">' + img + '</div><div class="info"><div class="t">' + esc(p.title) + '</div>' +
+      (p.location ? '<div class="loc">📍 ' + esc(p.location) + '</div>' : '') +
+      '<div class="pr">' + esc(price(p.price)) + '</div></div></a>';
+  }).join("");
+});
+document.getElementById("q").addEventListener("input", function () {
+  var q = this.value.toLowerCase().trim(), n = 0, cards = document.querySelectorAll(".card");
+  cards.forEach(function (c) { var ok = c.dataset.t.indexOf(q) > -1; c.style.display = ok ? "" : "none"; if (ok) n++; });
+  document.getElementById("none").hidden = n > 0 || !cards.length;
+});
+</script>
+</body>
+</html>

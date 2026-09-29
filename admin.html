@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin</title>
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<script src="common.js"></script>
+</head>
+<body>
+<header class="top"><a href="./" class="logo">♻ <span data-site></span></a>
+  <div class="links"><a href="./">Site</a><button id="logout" hidden>Ieșire</button></div></header>
+<main class="wrap">
+  <div id="flash"></div>
+
+  <!-- Login -->
+  <section id="vLogin" class="box" style="max-width:440px" hidden>
+    <h2 style="margin-top:0">Intrare admin</h2>
+    <p class="small">Lipește tokenul GitHub (se face o singură dată pe fiecare telefon/laptop; rămâne salvat doar pe dispozitivul tău).</p>
+    <label>Token GitHub</label>
+    <input type="password" id="token" placeholder="github_pat_...">
+    <button class="btn full" id="btnLogin">Intră</button>
+    <p class="small" id="repoInfo"></p>
+  </section>
+
+  <!-- Listă -->
+  <section id="vList" hidden>
+    <div class="bar"><h2 style="margin:0">Produse (<span id="count">0</span>)</h2>
+      <button class="btn" id="btnNew">+ Adaugă</button></div>
+    <div id="alist" class="alist"></div>
+  </section>
+
+  <!-- Formular -->
+  <section id="vForm" class="box" hidden>
+    <h2 style="margin-top:0" id="fTitle">Produs nou</h2>
+    <form id="form">
+      <label>Titlu *</label><input type="text" name="title" required maxlength="120">
+      <div id="oldPhotos"></div>
+      <label id="lblCover">Poza principală (de titlu)</label>
+      <input type="file" id="cover" accept="image/*">
+      <div id="coverPreview" class="photos" style="margin-top:8px"></div>
+      <label>Alte poze (poți alege mai multe)</label>
+      <input type="file" id="files" accept="image/*" multiple>
+      <div id="preview" class="photos" style="margin-top:8px"></div>
+      <label>Detalii</label><textarea name="description" placeholder="stare, dimensiuni, material..."></textarea>
+      <div class="row">
+        <div><label>Preț (<span id="cur"></span>)</label><input type="text" name="price" inputmode="decimal" placeholder="gol = la cerere"></div>
+        <div><label>Număr de bucăți</label><input type="number" name="quantity" min="0" value="1"></div>
+      </div>
+      <label>Locație</label><input type="text" name="location" placeholder="ex: București, Sector 3">
+      <label>Telefon WhatsApp *</label><input type="text" name="phone" inputmode="tel" required placeholder="ex: 0722 123 456">
+      <button class="btn full" type="submit">Salvează</button>
+    </form>
+    <p style="text-align:center"><a href="#" id="cancel" style="color:var(--muted)">Anulează</a></p>
+  </section>
+</main>
+<div class="busy" id="busy" hidden><div id="busyText">Se salvează...</div></div>
+<script src="admin.js"></script>
+</body>
+</html>
