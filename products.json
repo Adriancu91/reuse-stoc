@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "munvywtt7zq",
+    "created": 1790759499185,
+    "photos": [
+      "images/munvywtt7zq-740fz9.jpg",
+      "images/munvywtt7zq-hzo1ru.jpg",
+      "images/munvywtt7zq-hxfyed.jpg",
+      "images/munvywtt7zq-pjchq8.jpg"
+    ],
+    "title": "3dfx",
+    "price": "100",
+    "quantity": 5,
+    "location": "Pantelimon",
+    "description": "3dfx testat",
+    "phone": "0722483573"
+  }
+]
